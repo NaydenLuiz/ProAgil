@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using ProAgil.Repository;
 
 namespace ProAgil.WebAPI
@@ -28,7 +30,13 @@ namespace ProAgil.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(x=>x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddSwaggerGen(
+               (options) =>
+               {
+                   options.SwaggerDoc("v1", new OpenApiInfo { Title = "ProAgil_API", Version = "v1" });
+               });
             services.AddScoped<IProAgilRepository,ProAgilRepository>();
+            services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddCors();
         }
@@ -45,8 +53,13 @@ namespace ProAgil.WebAPI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("v1/swagger.json", "ProAgil_API");
+            });
 
-           // app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseCors(x =>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseStaticFiles();
             app.UseMvc();
