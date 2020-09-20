@@ -4,6 +4,13 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Resources\Images\img1.jpg" />
+    <Content Include="Resources\Images\img2.jpg" />
+    <Content Include="Resources\Images\img3.jpg" />
+    <Content Include="Resources\Images\img4.jpg" />
+    <Content Include="Resources\Images\img5.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
@@ -15,5 +22,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProAgil.Repository\ProAgil.Repository.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 </Project>
