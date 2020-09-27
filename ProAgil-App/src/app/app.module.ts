@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -18,7 +18,10 @@ import { TituloComponent } from './_shared/titulo/titulo.component';
 import {DateTimeFormatPipePipe} from './_helps/DateTimeFormatPipe.pipe';
 import { EventoService } from './_services/evento.service';
 import { ToastrModule } from 'ngx-toastr';
-
+import {UserComponent} from './user/user.component';
+import {LoginComponent} from './user/login/login.component';
+import {RegistrationComponent} from './user/registration/registration.component';
+import {AuthInterceptor} from './auth/auth.interceptor';
 @NgModule({
   declarations: [AppComponent,
      NavComponent,
@@ -27,7 +30,10 @@ import { ToastrModule } from 'ngx-toastr';
      DashboardComponent,
      ContatosComponent,
      TituloComponent,
-     DateTimeFormatPipePipe
+     DateTimeFormatPipePipe,
+     UserComponent,
+     LoginComponent,
+     RegistrationComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule,
      BrowserAnimationsModule,
@@ -43,7 +49,14 @@ import { ToastrModule } from 'ngx-toastr';
      }),
      ReactiveFormsModule
   ],
-  providers: [EventoService],
+  providers: [
+  EventoService,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }
+],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
