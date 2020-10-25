@@ -22,10 +22,16 @@ import {UserComponent} from './user/user.component';
 import {LoginComponent} from './user/login/login.component';
 import {RegistrationComponent} from './user/registration/registration.component';
 import {AuthInterceptor} from './auth/auth.interceptor';
+import {EventoEditComponent} from './eventos/eventoEdit/eventoEdit.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { NgxCurrencyModule } from 'ngx-currency';
+
 @NgModule({
   declarations: [AppComponent,
      NavComponent,
      EventosComponent,
+     EventoEditComponent,
      PalestrantesComponent,
      DashboardComponent,
      ContatosComponent,
@@ -34,6 +40,7 @@ import {AuthInterceptor} from './auth/auth.interceptor';
      UserComponent,
      LoginComponent,
      RegistrationComponent
+     
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule,
      BrowserAnimationsModule,
@@ -42,6 +49,9 @@ import {AuthInterceptor} from './auth/auth.interceptor';
      BsDatepickerModule.forRoot(),
      TooltipModule.forRoot(),
      ModalModule.forRoot(),
+     TabsModule.forRoot(),
+     NgxMaskModule.forRoot(),
+     NgxCurrencyModule,
      ToastrModule.forRoot({
        timeOut: 10000,
        positionClass: 'toast-bottom-right',

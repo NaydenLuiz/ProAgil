@@ -19,7 +19,7 @@ export class NavComponent implements OnInit {
 
   }
   entrar(){
-    
+    this.router.navigate(['/user/login']);
   }
   loggedIn(){
     return this.authService.loggedIn();
@@ -28,6 +28,10 @@ export class NavComponent implements OnInit {
     localStorage.removeItem('token');
     this.toastr.show('Log Out');
     this.router.navigate(['/user/login']);
+  }
+
+  userName(){
+    return sessionStorage.getItem('username');
   }
 
 }
